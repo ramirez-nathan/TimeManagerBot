@@ -17,6 +17,10 @@ from googleapiclient.errors import HttpError
 
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
+# ADD YOUR CALENDAR ID HERE
+YOUR_CALENDAR_ID = ''
+YOUR_TIMEZONE = '' # find yours here: https://www.timezoneconverter.com/cgi-bin/zonehelp.tzc?cc=US&ccdesc=United%20States
+
 
 def main():
     """Shows basic usage of the Google Calendar API.
@@ -72,7 +76,7 @@ def commitHours(creds):
         timeStart = str(today) + "T10:00:00Z"
         timeEnd = str(today) + "T23:59:59Z" # 'Z' indicates UTC time
         print("Getting today's coding hours")
-        events_result = service.events().list(calendarId='185540f686365047ce3abfbc2fff1104a3a4f11973c992b097a7b67b4be745c8@group.calendar.google.com', 
+        events_result = service.events().list(calendarId=YOUR_CALENDAR_ID, 
                                               timeMin=timeStart, timeMax=timeEnd, singleEvents=True,
                                               orderBy='startTime', timeZone='America/Los_Angeles').execute()
         events = events_result.get('items', [])
