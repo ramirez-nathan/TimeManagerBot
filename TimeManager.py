@@ -78,7 +78,7 @@ def commitHours(creds):
         print("Getting today's coding hours")
         events_result = service.events().list(calendarId=YOUR_CALENDAR_ID, 
                                               timeMin=timeStart, timeMax=timeEnd, singleEvents=True,
-                                              orderBy='startTime', timeZone='America/Los_Angeles').execute()
+                                              orderBy='startTime', timeZone=YOUR_TIMEZONE).execute()
         events = events_result.get('items', [])
 
         if not events:
@@ -129,16 +129,16 @@ def addEvent(creds, duration, description):
         'summary': description,
         'start': {
             'dateTime': start_formatted,
-            'timeZone': 'America/Los_Angeles',
+            'timeZone': YOUR_TIMEZONE,
             },
         'end': {
             'dateTime': end_formatted,
-            'timeZone': 'America/Los_Angeles',
+            'timeZone': YOUR_TIMEZONE,
             },   
     }
 
     service = build('calendar', 'v3', credentials=creds)
-    event = service.events().insert(calendarId='185540f686365047ce3abfbc2fff1104a3a4f11973c992b097a7b67b4be745c8@group.calendar.google.com', body=event).execute()
+    event = service.events().insert(calendarId=YOUR_CALENDAR_ID, body=event).execute()
     print('Event created: %s' % (event.get('htmlLink')))
 
 def getHours(number_of_days):
